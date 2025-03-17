@@ -1,1 +1,1 @@
-# CSC5543-AppointmentScheduleApp
+# CSC543-AppointmentScheduleApp
