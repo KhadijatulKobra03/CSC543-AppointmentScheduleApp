@@ -1,0 +1,28 @@
+footer a {
+    text-decoration: none;
+  }
+
+  footer a:link,
+  footer a:visited {
+    color: white;
+  }
+
+  footer a:hover {
+    color: olive;
+  }
+
+  footer a:active {
+    color: darkolivegreen;
+  }
+
+  footer svg {
+    color: black;
+  }
+
+  footer svg:hover {
+    color: whitesmoke;
+  }
+
+  footer svg:active {
+    color: silver;
+  }
