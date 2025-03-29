@@ -1,3 +1,20 @@
+header .nav-link {
+  text-decoration: none;
+}
+
+header .nav-link:link,
+header .nav-link:visited {
+  color: white;
+}
+
+header .nav-link:hover {
+  color: olive;
+}
+
+header .nav-link:active {
+  color: darkolivegreen;
+}
+
 footer a {
     text-decoration: none;
   }
