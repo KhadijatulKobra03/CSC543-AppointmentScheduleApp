@@ -1,1 +1,47 @@
+.calendar {
+    border: 2px solid #333;
+    padding: 40px;
+    width: 1050px;
+    text-align: auto;
+}
+
+.header {
+    font-size: 2.0em;
+    margin-bottom: 10px;
+}
+
+.weekdays {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.weekday {
+    width: 50px;
+    font-weight: bold;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.day {
+    width: 80px;
+    height: 50px;
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.empty {
+    background-color: #f0f0f0;
+}
+
+.day:hover {
+    background-color: olive;
+}
 
