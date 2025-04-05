@@ -1,1 +1,49 @@
 
+/* Logo + Title */
+.logo-img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.logo-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.logo-title:hover {
+    color: #f8b400;
+}
+
+/* Events Section */
+.events-section {
+    background-color: #f7f7f7;
+}
+
+.events-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.event-card {
+    transition: transform 0.3s;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.event-card:hover {
+    transform: scale(1.03);
+}
+
+.event-card .card-body {
+    background-color: white;
+}
+
+.event-card .event-date {
+    font-size: 0.9rem;
+    color: #777;
+    font-style: italic;
+}
