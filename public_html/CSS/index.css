@@ -1,20 +1,80 @@
 
-/* Full-screen Hero with background image */
+/* Base */
 body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-  
-  
-  /* Hero text styles */
-  .hero-wrapper h1 {
-    font-size: 3rem;
-    font-weight: bold;
-  }
-  
-  .hero-wrapper p {
-    font-size: 1.25rem;
-    margin-bottom: 20px;
-  }
-  
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+/* ========== PREVIEW CARDS ========== */
+.card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #444;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.testimonials h2 {
+  color: #333;
+}
+
+.testimonials blockquote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* ========== NEWSLETTER ========== */
+.newsletter {
+  background-color: rgba(33, 37, 41, 0.85);
+}
+
+.newsletter h3, .newsletter p {
+  color: white;
+}
+
+.newsletter input {
+  border-radius: 0;
+}
+
+.newsletter .btn {
+  border-radius: 0;
+}
