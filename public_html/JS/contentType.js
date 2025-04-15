@@ -1,0 +1,1 @@
+exports.contentType = function(extension) {
