@@ -1,13 +1,13 @@
 const http = require('http');
 const url = require('url');
-readFileModule = require('./public_html/js/readFileModule.js'); 
+readFile = require('./public_html/js/readFile.js'); 
 
 serving = function (req, res) {
 	console.log(req.url);
 	let fileName = './public_html' + url.parse(req.url).pathname;
 	console.log(fileName);
-	// call readFileModule.js
-	readFileModule.readFile(fileName,res);
+	// call readFile.js
+	readFile.readFile(fileName,res);
 }
 
 // creating server object
