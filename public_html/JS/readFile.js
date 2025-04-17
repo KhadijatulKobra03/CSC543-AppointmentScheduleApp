@@ -1,6 +1,55 @@
 const fs = require('fs');
 const path = require('path');
 
+const contentType = function(extension) {
+
+	switch(extension) {
+			case ".txt": {
+					return 'text/plain';
+			}
+			case ".html": {
+					return 'text/html';
+			}
+			case ".js": {
+					return 'text/javascript';
+			}
+			case ".css": {
+					return 'text/css';
+			}
+			case ".csv": {
+					return 'text/csv';
+			}
+			case ".gif": {
+					return 'image/gif';
+			}
+			case ".jpg":
+			case ".jpeg": {
+					return 'image/jpg';
+			}
+			case ".avif": {
+					return 'image/avif';
+			}
+			case ".png": {
+					return 'image/png';
+			}
+			case ".bmp": {
+					return 'image/bmp';
+			}
+			case ".svg": {
+					return 'image/svg+xml';
+			}
+			case ".ico": {
+				   return 'image/vnd.microsoft.icon';
+			}
+			case ".ics": {
+				return 'text/calendar';
+		 	}
+		 	default: {
+				return 'text/plain'
+			}
+	}
+};
+
 
 exports.readFile = function(fileName, res) {
 
@@ -9,7 +58,7 @@ exports.readFile = function(fileName, res) {
                 fileName='./public_html/index.html'
 	
 	// extracts extension 	
-	extension = path.extname(fileName);
+	const extension = path.extname(fileName);
 	console.log(extension);
 
 	fs.readFile(fileName, function(err,data) {
@@ -27,61 +76,3 @@ exports.readFile = function(fileName, res) {
 	});	
 };
 
-contentType = function(extension) {
-
-	switch(extension) {
-			case ".txt": {
-					return 'text/plain';
-					break;
-			}
-			case ".html": {
-					return 'text/html';
-					break;
-			}
-			case ".js": {
-					return 'text/javascript';
-					break;
-			}
-			case ".css": {
-					return 'text/css';
-					break;
-			}
-			case ".csv": {
-					return 'text/csv';
-					break;
-			}
-	case ".gif": {
-					return 'image/gif';
-					break;
-			}
-			case ".jpg":
-			case ".jpeg": {
-					return 'image/jpg';
-					break;
-			}
-			case ".avif": {
-					return 'image/avif';
-					break;
-			}
-			case ".png": {
-					return 'image/png';
-					break;
-			}
-			case ".bmp": {
-					return 'image/bmp';
-					break;
-			}
-			case ".svg": {
-					return 'image/svg+xml';
-					break;
-			}
-			case ".ico": {
-				   return 'image/vnd.microsoft.icon';
-				   break;
-			}
-			case ".ics": {
-				return 'text/calendar';
-				break;
-		 }
-	}
-};
