@@ -1,4 +1,4 @@
-const http = require('http');
+/*const http = require('http');
 const url = require('url');
 readFile = require('./public_html/js/readFile.js'); 
 
@@ -16,3 +16,4 @@ const myServer = http.createServer(serving);
 // server starts listenig on port 80
 myServer.listen(80, function() {console.log("Listening on port 80")});
 
+*/
