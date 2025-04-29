@@ -2,6 +2,9 @@
 
 
 Run:
- npm install nodemailer
- npm app.js
- Access the site through: http://localhost:80
+
+npm install nodemailer
+ 
+node app.js
+ 
+Access the site through: http://localhost:80
