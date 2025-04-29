@@ -155,7 +155,7 @@ const handle_incoming_requests = function (req, res) {
 					
 								transporter.sendMail(mailOptions, (error, info) => {
 									if (error) {
-									  console.error("Email sending error:", error);  // ✅ THIS IS IMPORTANT
+									  console.error("Email sending error:", error);  
 									  res.writeHead(500, { 'Content-Type': 'text/plain' });
 									  res.end("Reservation successful, but email failed.");
 									} else {
