@@ -6,9 +6,9 @@ signupBtn.addEventListener("click", newsletterSignup);
 
 function newsletterSignup() {
     // when client clicks add button
-   
+
     console.log("inside AJAX newsletterSignup")
-    
+
     let userFirstName = document.getElementById("fname").value;
     let userLastName = document.getElementById("lname").value;
     let userEmail = document.getElementById("email").value;
@@ -20,6 +20,10 @@ function newsletterSignup() {
     AJAX.onload = function () {
         if (this.status == 200) {
             // signup successful
+            document.getElementById("fname").value = "";
+            document.getElementById("lname").value = "";
+            document.getElementById("email").value = "";
+
             let results = JSON.parse(this.responseText);
             alert(results);
         }

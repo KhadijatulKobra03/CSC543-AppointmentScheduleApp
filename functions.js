@@ -28,7 +28,7 @@ function isAlpha(str) {
 function errMsg(res, str) {
     // sendes error message if wrong data
     console.log("inside errMsg")
-    sendResponse(res, 404, 'application/json', "Please enter a valid" + str);
+    sendResponse(res, 400, 'application/json', "Please enter a valid" + str);
 };
 
 
@@ -37,9 +37,14 @@ function errMsg(res, str) {
 
 
 
-newsletterSignup = new Array();
-newsletterSignup[1]= { "fname": "James", "lname": "Bond", "email": "agent007@email.com" }
-newsletterSignup[1]= { "fname": "Super", "lname": "Man", "email": "Superman@email.com" }
+const newsletterSignup = new Array();
+/*
+newsletterSignup[0] = { "fname": "James", "lname": "Bond", "email": "agent007@email.com" }
+newsletterSignup[1] = { "fname": "Super", "lname": "Man", "email": "Superman@email.com" }
+*/
+var newsletterSignupObj = {
+    table: []
+};
 
 exports.contact = function (queryObj, res) {
     // adds name to array
@@ -55,12 +60,51 @@ exports.contact = function (queryObj, res) {
                 console.log(userFirstName)
                 userLastName = String(userLastName).charAt(0).toUpperCase() + String(userLastName).slice(1).toLowerCase();
                 console.log(userLastName)
-
+                /*
                 if (newsletterSignup.some(elem => elem.email == userEmail))
                     sendResponse(res, 409, 'application/json', "Email already in the database.");
                 else {
                     newsletterSignup.push({ "fname": userFirstName, "lname": userLastName, "email": userEmail });
                     sendResponse(res, 200, 'application/json', "Thank you for signing up!");
+                }
+                */
+                if (fs.existsSync('newsletterSignup.json')) { // if file exists - append to it
+                    fs.readFile('newsletterSignup.json', 'utf8', function readFileCallback(err, data) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let obj = JSON.parse(data); //converting data from file to object
+
+                            if (obj.table.some(elem => elem.email == userEmail)) {
+                                sendResponse(res, 409, 'application/json', "Email already in the database.");
+                            }
+                            else {
+                                obj.table.push({ "fname": userFirstName, "lname": userLastName, "email": userEmail }); //add some data
+                                const newsletterSignupObjinJSON = JSON.stringify(obj,null,2); //convert it back to json
+                                fs.writeFile('newsletterSignup.json', newsletterSignupObjinJSON, 'utf8', function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log("Successfully written to file"); // write it back to file
+                                        sendResponse(res, 200, 'application/json', "Thank you for signing up!");
+                                    }
+                                });
+                                
+                            }
+                        }
+                    });
+                }
+                else { // if file doesn't exist - create it and write to it
+                    newsletterSignupObj.table.push({ "fname": userFirstName, "lname": userLastName, "email": userEmail });
+                    const newsletterSignupObjinJSON = JSON.stringify(newsletterSignupObj, null,2);
+                    fs.writeFile('newsletterSignup.json', newsletterSignupObjinJSON, 'utf8', function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Successfully written to file"); // write it back to file
+                            sendResponse(res, 200, 'application/json', "Thank you for signing up!");
+                        }
+                    });
                 }
             }
             else

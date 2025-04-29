@@ -66,11 +66,12 @@ const handle_incoming_requests = function (req, res) {
 			console.log("in app.js end", body)
 			const queryObj = JSON.parse(body);
 			switch (path) {
+				/*
 				case "/newsletter": {
 					console.log("in app.js newsletter")
 					fun.newsletter(queryObj, res);
 					break;
-				}
+				}*/
 				case "/bookclass": { // Marina's case calling book function from scheduling.js
 					console.log("in app.js scheduling")
 					schedule.book(queryObj, res);

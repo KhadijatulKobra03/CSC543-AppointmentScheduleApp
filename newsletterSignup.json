@@ -1,0 +1,29 @@
+{
+  "table": [
+    {
+      "fname": "Bob",
+      "lname": "Yellow",
+      "email": "by@email.com"
+    },
+    {
+      "fname": "Jenny",
+      "lname": "Brown",
+      "email": "jb@gmail.com"
+    },
+    {
+      "fname": "John",
+      "lname": "Brown",
+      "email": "jbrown@gmail.com"
+    },
+    {
+      "fname": "Mandy",
+      "lname": "Peach",
+      "email": "Manny@ia.com"
+    },
+    {
+      "fname": "Penny",
+      "lname": "Red",
+      "email": "pr@email.net"
+    }
+  ]
+}
