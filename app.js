@@ -1,10 +1,10 @@
 const http = require('http');
 const url = require('url');
-readFile = require('./public_html/js/readFile.js');
-fun = require('./functions.js')
-schedule = require('./schedule_server.js');
+const readFile = require('./public_html/js/readFile.js');
+const fun = require('./functions.js')
+const schedule = require('./schedule_server.js');
 
-handle_incoming_requests = function (req, res) {
+const handle_incoming_requests = function (req, res) {
 	console.log(req.url);
 
 	if (req.method == "GET")
@@ -17,7 +17,7 @@ handle_incoming_requests = function (req, res) {
 		res.end();
 	}
 
-	function processGet() {
+	function processGet(req,res) {
 		// get path from request
 		const path = url.parse(req.url, "true").pathname;
 		// parsing query string into object
