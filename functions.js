@@ -13,30 +13,77 @@ function sendResponse(res, status, type, body) {
 };
 
 
+function isEmail(str) {
+    // function checks if string is in email format
+    return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(str);
+};
 
 
-// ==================================== begins Kate
-
-
-
-/*
-function isAlpha(str) {    // function checks if string is alpha
+function isAlpha(str) {
+    // function checks if string is alpha
     return /^[a-zA-Z]+$/.test(str);
 };
-*/
-/*
-function errMsg(res) {
-    // sendes error message if "letters" are not alpha
+
+
+function errMsg(res, str) {
+    // sendes error message if wrong data
     console.log("inside errMsg")
-    sendResponse(res, 404, 'application/json', "Please enter a valid string");
+    sendResponse(res, 404, 'application/json', "Please enter a valid" + str);
 };
-*/
+
+
+
+// ==================================== CONTACT ==========================================
+
+
+
+newsletterSignup = new Array();
+newsletterSignup[1]= { "fname": "James", "lname": "Bond", "email": "agent007@email.com" }
+newsletterSignup[1]= { "fname": "Super", "lname": "Man", "email": "Superman@email.com" }
+
+exports.contact = function (queryObj, res) {
+    // adds name to array
+    console.log("inside response to contact");
+    let userFirstName = queryObj.fname;
+    let userLastName = queryObj.lname;
+    let userEmail = queryObj.email;
+    if (isAlpha(userFirstName)) {
+        if (isAlpha(userLastName)) {
+            if (isEmail(userEmail)) {
+                //add to array
+                userFirstName = String(userFirstName).charAt(0).toUpperCase() + String(userFirstName).slice(1).toLowerCase();
+                console.log(userFirstName)
+                userLastName = String(userLastName).charAt(0).toUpperCase() + String(userLastName).slice(1).toLowerCase();
+                console.log(userLastName)
+
+                if (newsletterSignup.some(elem => elem.email == userEmail))
+                    sendResponse(res, 409, 'application/json', "Email already in the database.");
+                else {
+                    newsletterSignup.push({ "fname": userFirstName, "lname": userLastName, "email": userEmail });
+                    sendResponse(res, 200, 'application/json', "Thank you for signing up!");
+                }
+            }
+            else
+                errMsg(res, " email");
+        }
+        else
+            errMsg(res, " last name");
+    }
+    else
+        errMsg(res, " first name");
+};
+
+
+
+// ==================================== CLASSES ==========================================
+
+
 
 exports.classes = function (queryObj, res) {
     // sends classes of chosen category
-    let categoryValue = queryObj.category;
 
-    console.log(categoryValue)
+    let classLevel = queryObj.level;
+    console.log(classLevel)
 
     let by = '  <div class="row p-2"> \
                     <h3>Beginner Yoga</h3> \
@@ -102,7 +149,7 @@ exports.classes = function (queryObj, res) {
                 </div> \
             ';
 
-    switch (categoryValue) {
+    switch (classLevel) {
         case "all": {
             sendResponse(res, 200, 'application/json', by + iy + ay + gy + cy + kty + m);
             break;
@@ -122,51 +169,97 @@ exports.classes = function (queryObj, res) {
         default: {
             sendResponse(res, 200, 'application/json', by + iy + ay + gy + cy + kty + m);
             break;
-        }
+        };
     }
 };
 
 
 
+// ==================================== PRICING ==========================================
 
 
 
 exports.pricing = function (queryObj, res) {
-    // sends names that contain letters 
-    let letters = queryObj.letters;
-    if (isAlpha(letters)) {
-        console.log("inside response to contains");
-        sendResponse(res, 200, 'application/json', (a.filter(elem => { return elem.toLowerCase().includes(letters.toLowerCase()) })));
+    // sends prices of chosen category 
+
+    let priceCategory = queryObj.category;
+    console.log(priceCategory)
+
+    let cc = '     <div class="row classCards"> \
+                    <h2>Class Cards</h2> \
+                    <p>All of our classes can be attended using Class Cards.</p> \
+                    <p>$20 Single class</p> \
+                    <p>$90 5-Class Card</p> \
+                    <p>$160 10-Class Card</p> \
+                    <p>$300 20-Class Card</p> \
+                    </div> \
+            ';
+
+    let dcc = '    <div class="row discountedClassCards"> \
+                    <h2>Discounted Class Cards</h2> \
+                    <p>Discounted Class Cards are for classes before noon.</p> \
+                    <p>$15 Single class</p> \
+                    <p>$65 5-Class Card</p> \
+                    <p>$120 10-Class Card</p> \
+                    <p>$220 20-Class Card</p> \
+                    </div> \
+            ';
+
+    let vc = '      <div class="row virtualClasses"> \
+                    <h2>Virtual Classes</h2> \
+                    <p>Attend the class virtually, from the comfort of your home.</p> \
+                    <p>$12 Single class</p> \
+                    <p>$55 5-Class Card</p> \
+                    <p>$100 10-Class Card</p> \
+                    <p>$180 20-Class Card</p> \
+                    </div> \
+            ';
+    let m = '       <div class="row Membership"> \
+                    <h2>Membership</h2>\
+                    <p>Unlimited yoga for one monthly price. Attend all the classes you want, in person and virtual classes included. </p> \
+                    <p>$99/month - regular membership, credit card on file and auto-renewal </p> \
+                    <p>$109/month - no credit card on file, no auto-reneval</p> \
+                    <p>$50/month - virtual membership</p> \
+                     </div> \
+            ';
+
+    let gc = '      <div class="row giftCertificates"> \
+                    <h2>Gift Certificates</h2> \
+                    <p>Gift certificates are avaliable in any amount.</p> \
+                    </div> \
+            ';
+
+    let a = cc + dcc + vc + m + gc;
+
+    switch (priceCategory) {
+        case "a": {
+            sendResponse(res, 200, 'application/json', a);
+            break;
+        };
+        case "cc": {
+            sendResponse(res, 200, 'application/json', cc);
+            break;
+        };
+        case "dcc": {
+            sendResponse(res, 200, 'application/json', dcc);
+            break;
+        };
+        case "gc": {
+            sendResponse(res, 200, 'application/json', gc);
+            break;
+        };
+        case "m": {
+            sendResponse(res, 200, 'application/json', m);
+            break;
+        };
+        case "vc": {
+            sendResponse(res, 200, 'application/json', vc);
+            break;
+        };
+        default: {
+            sendResponse(res, 200, 'application/json', a);
+            break;
+        };
     }
-    else
-        errMsg(res);
+
 };
-
-
-
-/*
-exports.newsletter = function (queryObj, res) {
-    // adds name to array
-    console.log("inside response to add");
-    let name = queryObj.name;
-    if (isAlpha(name)) {
-        //add to array
-        name = String(name).charAt(0).toUpperCase() + String(name).slice(1).toLowerCase();
-        if (a.includes(name))
-            sendResponse(res, 409, 'application/json', "Name already in the database.");
-        else {
-            a.push(name);
-            sendResponse(res, 200, 'application/json', name);
-        }
-    }
-    else
-        errMsg(res);
-};
-
-
-*/
-
-
-
-
-// ============================= ends Kate =======================================
