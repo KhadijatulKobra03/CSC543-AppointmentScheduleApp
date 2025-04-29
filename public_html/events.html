@@ -12,7 +12,7 @@
     <!-- Bootstrap & CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="CSS/header_footer.css">
-    <link rel="stylesheet" href="events_styles.css">
+    <link rel="stylesheet" href="CSS/events.css">
 </head>
 <body>
 
@@ -60,6 +60,8 @@
                         <h5 class="card-title">Sunset Yoga at the Beach</h5>
                         <p class="card-text">Join us for an evening flow under the sky. All levels welcome.</p>
                         <p class="event-date">May 10, 2025</p>
+                        <button class="btn btn-secondary reserve-btn" data-event="Sunset Yoga at the Beach">Reserve a Spot</button>
+
                     </div>
                 </div>
             </div>
@@ -72,6 +74,8 @@
                         <h5 class="card-title">Sound Healing Workshop</h5>
                         <p class="card-text">Relax into healing vibrations with crystal bowls and guided meditation.</p>
                         <p class="event-date">June 15, 2025</p>
+                        <button class="btn btn-secondary reserve-btn" data-event="Sound Healing Workshop">Reserve a Spot</button>
+
                     </div>
                 </div>
             </div>
@@ -84,6 +88,8 @@
                         <h5 class="card-title">Full Moon Flow & Journaling</h5>
                         <p class="card-text">A soulful practice followed by reflection and journaling prompts.</p>
                         <p class="event-date">July 21, 2025</p>
+                        <button class="btn btn-secondary reserve-btn" data-event="Full Moon Flow & Journaling">Reserve a Spot</button>
+
                     </div>
                 </div>
             </div>
@@ -148,11 +154,47 @@
      
     </footer>
   </div>
+<!-- Reservation Modal -->
+<div class="modal fade" id="reserveModal" tabindex="-1" aria-labelledby="reserveModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="reservationForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reserveModalLabel">Reserve a Spot</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="event_name">
+
+          <div class="mb-3">
+            <input type="text" id="first_name" class="form-control" placeholder="First Name" required>
+          </div>
+
+          <div class="mb-3">
+            <input type="text" id="last_name" class="form-control" placeholder="Last Name" required>
+          </div>
+
+          <div class="mb-3">
+            <input type="email" id="email" class="form-control" placeholder="Email" required>
+          </div>
+
+          <div class="mb-3">
+            <input type="email" id="confirm_email" class="form-control" placeholder="Confirm Email" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Reserve</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+    <script src="JS/events.js"></script>
 </body>
 
 </html>

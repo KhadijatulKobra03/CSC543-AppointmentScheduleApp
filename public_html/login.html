@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login</title>
+  <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
+  <div class="container">
   <h2>Login</h2>
   <form id="loginForm">
-    <label for="email">Email:</label>
-    <input type="email" id="email" required /><br/>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" required /><br/>
-
+    <div><label for="email"></label>
+    <input type="email" id="email" required placeholder="Email or Username"/><br/>
+  </div>
+  <div>
+    <label for="password"></label>
+    <input type="password" id="password" required placeholder="Password"/><br/>
+  </div>
     <button type="submit">Login</button>
   </form>
-
+</div>
   <script src="JS/login.js"></script>
 </body>
 </html>

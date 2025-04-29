@@ -3,7 +3,28 @@ const url = require('url');
 const readFile = require('./public_html/js/readFile.js');
 const fun = require('./functions.js')
 const schedule = require('./schedule_server.js');
-
+const mysql = require('mysql');
+const nodemailer = require('nodemailer');
+const db = mysql.createConnection({
+	host: 'localhost',
+	user: 'yogauser',
+	password: 'CSC543',
+	database: 'yoga_database'
+  });
+  
+  db.connect((err) => {
+	if (err) throw err;
+	console.log("MySQL connected");
+  });
+  
+  const transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+	  user: 'khadijatulkobra3399@gmail.com',
+	  pass: 'fihi nbnd pckv onww'
+	}
+  });
+  
 const handle_incoming_requests = function (req, res) {
 	console.log(req.url);
 
@@ -82,11 +103,82 @@ const handle_incoming_requests = function (req, res) {
 					fun.contact(queryObj, res);
 					break;
 				}
-				default: {
+				case "/register": {
+					console.log("in app.js register");
+					const { username, email, password } = queryObj;
+					const sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+					db.query(sql, [username, email, password], (err, result) => {
+					  if (err) {
+						res.writeHead(400, { 'Content-Type': 'text/plain' });
+						res.end("User already exists or error occurred.");
+					  } else {
+						res.writeHead(200, { 'Content-Type': 'text/plain' });
+						res.end("Registered successfully");
+					  }
+					});
+					break;
+				  }
+				  case "/login": {
+					console.log("in app.js login");
+					const { email, password } = queryObj;
+					const sql = "SELECT * FROM users WHERE (email = ? or username = ?) AND password = ?";
+					db.query(sql, [email,email, password], (err, results) => {
+					  if (err) {
+						res.writeHead(500, { 'Content-Type': 'text/plain' });
+						res.end("Server error");
+					  } else if (results.length > 0) {
+						res.writeHead(200, { 'Content-Type': 'text/plain' });
+						res.end("Login successful");
+					  } else {
+						res.writeHead(401, { 'Content-Type': 'text/plain' });
+						res.end("Invalid credentials");
+					  }
+					});
+					break;}
+
+					case "/register_event": {
+						console.log("in app.js register_event");
+						const { firstName, lastName, email, eventName } = queryObj;
+						const sql = "INSERT INTO event_registrations (name, email, event_name) VALUES (?, ?, ?)";
+						const fullName = firstName + " " + lastName;
+						db.query(sql, [fullName, email, eventName], (err, result) => {
+							if (err) {
+								res.writeHead(500, { 'Content-Type': 'text/plain' });
+								res.end("Failed to reserve your spot.");
+							} else {
+								const mailOptions = {
+									from: 'your_email@gmail.com',
+									to: email,
+									subject: `Reservation Confirmed: ${eventName}`,
+									text: `Hi ${firstName},\n\nYou have successfully reserved a spot for "${eventName}".\n\nSee you there!\n\nInner Bliss Yoga`
+								};
+					
+								transporter.sendMail(mailOptions, (error, info) => {
+									if (error) {
+									  console.error("Email sending error:", error);  // ✅ THIS IS IMPORTANT
+									  res.writeHead(500, { 'Content-Type': 'text/plain' });
+									  res.end("Reservation successful, but email failed.");
+									} else {
+									  console.log("Email sent: " + info.response);
+									  res.writeHead(200, { 'Content-Type': 'text/plain' });
+									  res.end("Reservation successful! Confirmation email sent.");
+									}
+								  });
+								  
+
+							}
+						});
+						break;
+					}
+					
+
+				    default: {
 					let fileName = './public_html' + path //url.parse(req.url).pathname;
 					console.log(fileName);
 					// call readFile.js module
 					readFile.readFile(fileName, res);
+					
+						  
 				}
 			}
 		}
