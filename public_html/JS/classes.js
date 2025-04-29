@@ -1,16 +1,14 @@
-categoryValue = document.querySelector('input[name="classLevel"]:checked').value;
-console.log(categoryValue);
-//displayClasses = document.getElementById("displayClasses");
+classLevel = document.querySelector('input[name="classLevel"]:checked').value;
+displayClasses = document.getElementById("displayClasses");
 
 // event handlers
 document.getElementById("levels").addEventListener("click", updateLevel);
 
-
 function updateLevel() {
-
     // when client chooses class level with radio button
     console.log("inside AJAX updateLevel")
-    categoryValue = document.querySelector('input[name="classLevel"]:checked').value;
+    classLevel = document.querySelector('input[name="classLevel"]:checked').value;
+    console.log(classLevel);
     let AJAX = new XMLHttpRequest();
 
     AJAX.onerror = function () { alert("Error") };
@@ -18,12 +16,11 @@ function updateLevel() {
         if (this.status == 200) {
             let results = JSON.parse(this.responseText);
             console.log("back to Ajax updateLevel");
-            console.log(results)
-            document.getElementById("displayClasses").innerHTML = results;
+            displayClasses.innerHTML = results;
         }
-        else { document.getElementById("displayClasses").innerHTML = JSON.parse(this.responseText) };
+        else {displayClasses.innerHTML = JSON.parse(this.responseText) };
     }
-    AJAX.open("GET", "/classes?category=" + categoryValue);
+    AJAX.open("GET", "/classes?level=" + classLevel);
     AJAX.send();
 };
 
