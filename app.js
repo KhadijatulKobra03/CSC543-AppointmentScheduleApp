@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 readFile = require('./public_html/js/readFile.js');
 fun = require('./functions.js')
+schedule = require('./schedule_server.js');
 
 handle_incoming_requests = function (req, res) {
 	console.log(req.url);
@@ -31,7 +32,17 @@ handle_incoming_requests = function (req, res) {
 			case "/pricing": {
 				console.log("in app.js pricing")
 				fun.pricing(queryObj, res);
-				break;
+				break;	
+			}
+			case "/bookaclass": { // Marina GET response from schedule.js calling function availableSlot
+				console.log("in app.js schedule")
+				schedule.availableSlot(queryObj, res);
+				break;	
+			}
+			case "/cancel": { // Marina GET response from schedule.js calling function cancel
+				console.log("in app.js schedule")
+				schedule.cancel(queryObj, res);
+				break;	
 			}
 			default: {
 				let fileName = './public_html' + path //url.parse(req.url, "true").pathname;
@@ -58,6 +69,11 @@ handle_incoming_requests = function (req, res) {
 				case "/newsletter": {
 					console.log("in app.js newsletter")
 					fun.newsletter(queryObj, res);
+					break;
+				}
+				case "/bookclass": { // Marina's case calling book function from scheduling.js
+					console.log("in app.js scheduling")
+					schedule.book(queryObj, res);
 					break;
 				}
 				default: {
