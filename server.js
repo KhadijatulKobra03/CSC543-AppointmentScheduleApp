@@ -1,4 +1,4 @@
-const express = require("express");
+/* const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const path = require("path");
@@ -45,4 +45,4 @@ app.post("/login", (req, res) => {
 
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
-});
+}); */
