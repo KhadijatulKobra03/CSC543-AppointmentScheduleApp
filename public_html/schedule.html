@@ -232,7 +232,49 @@
     <div class="mt-4"></div>
   </div>
 
- 
+ <div class="container-fluid justify-content-md-center" style="font-size:xx-large; text-align: right; font-weight: bold; padding-bottom: 20px;">
+  <button type="button" id="bookingButton" style="background-color: darkolivegreen;" data-bs-toggle="modal" data-bs-target="#bookingButton" data-bs-whatever="bookClass">Book a Class</button>
+ </div>
+  <div class="modal fade" id="bookingForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="titleOfBookingForm">Booking Form</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="className" class="col-form-label">Class</label>
+              <input type="text" class="form-control" id="class-name">
+            </div>
+            <div class="mb-3">
+              <label for="classDate" class="col-form-label">Class Date</label>
+              <input type="text" class="form-control" id="class-date">
+            </div>
+            <div class="mb-3">
+              <label for="firsName" class="col-form-label">First Name</label>
+              <input type="text" class="form-control" id="first-name">
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="col-form-label">Last Name</label>
+              <input type="text" class="form-control" id="last-name">
+            </div>
+            <div class="mb-3">
+              <label for="email-address" class="col-form-label">Email</label>
+              <input type="text" class="form-control" id="email">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="book" class="btn btn-primary">Book Class</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class="container-fluid text-center">
     <footer>   
 
