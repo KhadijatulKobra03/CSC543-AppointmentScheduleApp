@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 const db = mysql.createConnection({
 	host: 'localhost',
 	user: 'yogauser',
-	password: 'CSC543',
+	password: 'CSC543InnerBlissYoga',
 	database: 'yoga_database'
   });
   
