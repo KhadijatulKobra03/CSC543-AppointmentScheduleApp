@@ -76,6 +76,11 @@ const handle_incoming_requests = function (req, res) {
 					schedule.book(queryObj, res);
 					break;
 				}
+				case "/contact": {
+					console.log("in app.js contact")
+					fun.contact(queryObj, res);
+					break;
+				}
 				default: {
 					let fileName = './public_html' + path //url.parse(req.url).pathname;
 					console.log(fileName);
