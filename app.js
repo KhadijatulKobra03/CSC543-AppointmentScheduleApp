@@ -6,7 +6,7 @@ const schedule = require('./schedule_server.js');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const db = mysql.createConnection({
-	host: 'localhost',
+	host: '35.202.25.101',  //khadija's vm's ip address
 	user: 'yogauser',
 	password: 'CSC543',
 	database: 'yoga_database'
