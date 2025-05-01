@@ -1,3 +1,4 @@
+
 document.getElementById("bookingButton").addEventListener("click", availableSlot);
 document.getElementById("cancel").addEventListener("click", cancel);
 document.getElementById("book").addEventListener("click", book);
@@ -6,14 +7,23 @@ let Form;
 
 let booking = [];
 
+let availableDates = [];
+
 function availableSlot () {
     Form = new bootstrap.Modal(document.getElementById("bookingForm"));
 
     let xmlhttpAvailableSlot = new XMLHttpRequest();
     xmlhttpAvailableSlot.open("GET", "/bookaclass", true);
-    xmlhttpAvailableSlot.onload = function () { // when request is loaded, xmlhttpContains will be parsed as JSON
+    xmlhttpAvailableSlot.onload = function () { // when request is loaded, xmlhttpAvailableSlots will be parsed as JSON
         if (xmlhttpAvailableSlot.status === 200) {
+            const response = JSON.parse(xmlhttpAvailableSlot.responseText);
+            availableDates = response.availableDates; 
                 Form.show();
+
+                flatpickr("#class-date", {
+                    enable: availableDates, 
+                    dateFormat: "Y-m-d"
+                });
        
         } else {
             console.log("Failed to send GET request to Book a Class", xmlhttpAvailableSlot.status);
@@ -25,7 +35,7 @@ function availableSlot () {
 
 function book(){
 
-        let nameOfClass = document.getElementById("class-name").value;
+        let nameOfClass = document.getElementById("classSelect").value;;
         let dateOfClass = document.getElementById("class-date").value;
         let firstNameOfUser = document.getElementById("first-name").value;
         let lastNameOfUser = document.getElementById("last-name").value;
