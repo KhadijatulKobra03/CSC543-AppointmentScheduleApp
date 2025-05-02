@@ -66,7 +66,6 @@ CREATE TABLE class_bookings (
   booking_id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
   class_id INT NOT NULL,
-  class_name VARCHAR(100) NOT NULL,
   class_date DATE NOT NULL,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
@@ -77,8 +76,8 @@ FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE RESTRICT
 );
 INSERT INTO class_bookings (user_id, class_id, class_name, class_date, first_name, last_name, email)
 VALUES
-(1, 1, 'Beginner Yoga', '2025-06-03', 'Alice', 'Smith', 'alice@example.com'),
-(2, 2, 'Meditation', '2025-06-06', 'Bob', 'Johnson', 'bob@example.com'),
-(1, 2, 'Meditation', '2025-06-10', 'Alice', 'Smith', 'alice@example.com'),
-(2, 1, 'Beginner Yoga', '2025-06-13', 'Bob', 'Johnson', 'bob@example.com');
+(1, 1, '2025-06-03', 'Alice', 'Smith', 'alice@example.com'),
+(2, 2, '2025-06-06', 'Bob', 'Johnson', 'bob@example.com'),
+(1, 2, '2025-06-10', 'Alice', 'Smith', 'alice@example.com'),
+(2, 1, '2025-06-13', 'Bob', 'Johnson', 'bob@example.com');
 
