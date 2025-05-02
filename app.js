@@ -94,10 +94,9 @@ const handle_incoming_requests = function (req, res) {
 				}*/
 				case "/schedule": {
 					console.log("in app.js scheduling")
-					const objQuery = url.parse(req.url, true).query;
-					if (objQuery.action === "available") {
+					if (queryObj.action === "available") {
 						schedule.availableSlot(queryObj, res);
-					} else if (objQuery.action === "book"){
+					} else if (queryObj.action === "book"){
 						schedule.book(queryObj, res);
 					}
 					break;

@@ -12,6 +12,7 @@ const availableClassDates = {
 
 
 function availableSlot(params, res){
+    console.log("Received className:", params.className);
     
     const className = params.className;
     const availableDates = availableClassDates[className];

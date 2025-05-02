@@ -1,11 +1,6 @@
 
 document.getElementById("bookingButton").addEventListener("click", () => {
     const userSelection = document.getElementById("classSelect").value;
-
-    if (!userSelection) {
-        alert("Please select a class before checking availability.");
-        return;
-    }
     availableSlot(userSelection);
 });
 document.getElementById("cancel").addEventListener("click", cancel);
@@ -18,9 +13,16 @@ let booking = [];
 let availableDates = [];
 
 function availableSlot (className) {
+    console.log("Sending className:", className);
+
+    if (!className) {
+        console.error("Class name is missing");
+        return;
+    }
 
     let xmlhttpAvailableSlot = new XMLHttpRequest();
-    xmlhttpAvailableSlot.open("POST", "/schedule?action=available", true);
+    xmlhttpAvailableSlot.open("POST", "/schedule", true);
+    xmlhttpAvailableSlot.setRequestHeader("Content-Type", "application/json");
     xmlhttpAvailableSlot.onload = function () { // when request is loaded, xmlhttpAvailableSlots will be parsed as JSON
         if (xmlhttpAvailableSlot.status === 200) {
             const response = JSON.parse(xmlhttpAvailableSlot.responseText);
@@ -36,7 +38,7 @@ function availableSlot (className) {
             console.log("Failed to fetch available dates:", xmlhttpAvailableSlot.status);
         }
     };
-        xmlhttpAvailableSlot.send((JSON.stringify({ className }))); 
+        xmlhttpAvailableSlot.send(JSON.stringify({ className, action: "available" })); 
 
 } 
 
