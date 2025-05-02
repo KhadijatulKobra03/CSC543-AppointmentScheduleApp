@@ -48,11 +48,13 @@ if (selectedClass == "")
 });
 
     document.getElementById("book").addEventListener("click", function () {
+                
                 let classSelection = document.getElementById("classSelect").value;
                 let dateOfClass = document.getElementById("class-date").value;
                 let firstNameOfUser = document.getElementById("first-name").value;
                 let lastNameOfUser = document.getElementById("last-name").value;
                 let emailOfUser = document.getElementById("email").value;
+            
                 
                 if (!classSelection) {
                     alert("Please select a class");
@@ -67,15 +69,26 @@ if (selectedClass == "")
                 if (!firstNameOfUser) {
                     alert("Please fill in with mandatory personal information");
                     return;
-                }
                 
+                } else if (/^\d+$/.test(firstNameOfUser)) {
+                    alert("Please enter a valid first name");
+                    return;
+                }
+                  
                 if (!lastNameOfUser) {
                     alert("Please fill in with mandatory personal information");
+                    return;
+                } else if (/^\d+$/.test(lastNameOfUser)) {
+                    alert("Please enter a valid last name");
                     return;
                 }
 
                 if (!emailOfUser) {
-                    alert("Please fill in with mandatory personal information");
+                    alert("Please enter a valid email");
+                    return;
+                
+                } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(emailOfUser)) {
+                    alert("Please enter a valid email");
                     return;
                 }
 

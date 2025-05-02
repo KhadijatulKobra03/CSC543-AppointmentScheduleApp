@@ -17,7 +17,7 @@ function isEmail(str) {
     // function checks if string is in email format
     return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(str);
 };
-
+ 
 
 function isAlpha(str) {
     // function checks if string is alpha
