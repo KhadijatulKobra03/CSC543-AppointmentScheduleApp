@@ -30,6 +30,14 @@ CREATE TABLE users (
   password VARCHAR(20)
 );
 
+INSERT INTO users (username, email, password)
+VALUES
+('alice', 'alice@example.com', 'pass124'),
+('bob', 'bob@example.com', 'pass12345'),
+('carol', 'carol@example.com', 'pass789'),
+('dave', 'dave@example.com', 'pass888'),
+('emma', 'emma@example.com', 'pass123');
+
 CREATE TABLE event_registrations (
   id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
@@ -37,4 +45,40 @@ CREATE TABLE event_registrations (
   event_name VARCHAR(100) NOT NULL,
   registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE classes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE
+);
+
+
+INSERT INTO classes (name) VALUES
+('Beginner Yoga'),
+('Intermediate Yoga'),
+('Advanced Yoga'),
+('Meditation'),
+('Gentle Yoga'),
+('Chair Yoga'),
+('Kids and Teens Yoga');
+
+
+CREATE TABLE class_bookings (
+  booking_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  class_id INT NOT NULL,
+  class_name VARCHAR(100) NOT NULL,
+  class_date DATE NOT NULL,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE RESTRICT
+ 
+);
+INSERT INTO class_bookings (user_id, class_id, class_name, class_date, first_name, last_name, email)
+VALUES
+(1, 1, 'Beginner Yoga', '2025-06-03', 'Alice', 'Smith', 'alice@example.com'),
+(2, 2, 'Meditation', '2025-06-06', 'Bob', 'Johnson', 'bob@example.com'),
+(1, 2, 'Meditation', '2025-06-10', 'Alice', 'Smith', 'alice@example.com'),
+(2, 1, 'Beginner Yoga', '2025-06-13', 'Bob', 'Johnson', 'bob@example.com');
 
