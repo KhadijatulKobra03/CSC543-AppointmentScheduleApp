@@ -1,86 +1,107 @@
 
-document.getElementById("bookingButton").addEventListener("click", () => {
-    const userSelection = document.getElementById("classSelect").value;
-    availableSlot(userSelection);
-});
 document.getElementById("cancel").addEventListener("click", cancel);
-document.getElementById("book").addEventListener("click", book);
+document.getElementById("bookingButton").addEventListener("click", showBookingForm);
 
 let Form = new bootstrap.Modal(document.getElementById("bookingForm"));
 
 let booking = [];
 
+function showBookingForm (){
+    Form.show();
+}
+
 let availableDates = [];
 
-function availableSlot (className) {
-    console.log("Sending className:", className);
+document.getElementById("classSelect").addEventListener("change", function () {
+const selectedClass = this.value;
 
-    if (!className) {
-        console.error("Class name is missing");
-        return;
-    }
+if (selectedClass == "")
+    return;
 
-    let xmlhttpAvailableSlot = new XMLHttpRequest();
-    xmlhttpAvailableSlot.open("POST", "/schedule", true);
-    xmlhttpAvailableSlot.setRequestHeader("Content-Type", "application/json");
-    xmlhttpAvailableSlot.onload = function () { // when request is loaded, xmlhttpAvailableSlots will be parsed as JSON
-        if (xmlhttpAvailableSlot.status === 200) {
-            const response = JSON.parse(xmlhttpAvailableSlot.responseText);
-            const availableDates = response.availableDates; 
+
+    let xmlhttpBook = new XMLHttpRequest();
+    xmlhttpBook.open("POST", "/schedule", true);
+    xmlhttpBook.setRequestHeader("Content-Type", "application/json");
+    
+    xmlhttpBook.onload = function () { // when request is loaded, xmlhttpAvailableSlots will be parsed as JSON
+        if (xmlhttpBook.status === 200) {
+            const response = JSON.parse(xmlhttpBook.responseText);
+            const dates = response.availableDates; 
                 Form.show();
 
                 flatpickr("#class-date", {
-                    enable: availableDates, 
+                    enable: dates, 
                     dateFormat: "Y-m-d"
                 });
-       
-        } else {
-            console.log("Failed to fetch available dates:", xmlhttpAvailableSlot.status);
+         } else {
+            console.error("Failed to fetch available dates");
         }
     };
-        xmlhttpAvailableSlot.send(JSON.stringify({ className, action: "available" })); 
+        xmlhttpBook.send(JSON.stringify({className:selectedClass, action: "available"}));
+});
 
-} 
-
-function book(){
-
-        let nameOfClass = document.getElementById("classSelect").value;;
-        let dateOfClass = document.getElementById("class-date").value;
-        let firstNameOfUser = document.getElementById("first-name").value;
-        let lastNameOfUser = document.getElementById("last-name").value;
-        let emailOfUser = document.getElementById("email").value;
-        
-        let bookedAppointments = {
-            className: nameOfClass, 
-            classDate: dateOfClass,
-            firstName: firstNameOfUser, 
-            lastName: lastNameOfUser, 
-            email: emailOfUser
-        };
-        
-        let xmlhttpAddBookedClass = new XMLHttpRequest();
-        xmlhttpAddBookedClass.open("POST", "/schedule?action=book", true); // POST request on AJAX
-        xmlhttpAddBookedClass.setRequestHeader("Content-Type", "application/json");
-
-        xmlhttpAddBookedClass.onload = function () {
-            if (xmlhttpAddBookedClass.status === 200) {
-                booking.push(bookedAppointments);
-                console.log("Your class has been booked!:", xmlhttpAddBookedClass.responseText);
-
-                let confirmation = JSON.parse(xmlhttpAddBookedClass.responseText);
-                alert(confirmation.message);
-                if (Form){
-                    Form.hide();
+    document.getElementById("book").addEventListener("click", function () {
+                let classSelection = document.getElementById("classSelect").value;
+                let dateOfClass = document.getElementById("class-date").value;
+                let firstNameOfUser = document.getElementById("first-name").value;
+                let lastNameOfUser = document.getElementById("last-name").value;
+                let emailOfUser = document.getElementById("email").value;
+                
+                if (!classSelection) {
+                    alert("Please select a class");
+                    return;
                 }
 
-            } else {
-                console.error("Booking failed:", xmlhttpAddBookedClass.status);
-            }
-        };
-        xmlhttpAddBookedClass.send(JSON.stringify(bookedAppointments));
+                if (!dateOfClass) {
+                    alert("Please select a date");
+                    return;
+                }
+
+                if (!firstNameOfUser) {
+                    alert("Please fill in with mandatory personal information");
+                    return;
+                }
+                
+                if (!lastNameOfUser) {
+                    alert("Please fill in with mandatory personal information");
+                    return;
+                }
+
+                if (!emailOfUser) {
+                    alert("Please fill in with mandatory personal information");
+                    return;
+                }
+
+                let bookedAppointments = {
+                    className: classSelection, 
+                    classDate: dateOfClass,
+                    firstName: firstNameOfUser, 
+                    lastName: lastNameOfUser, 
+                    email: emailOfUser,
+                    action: "book"
+                };
+              
+                
+            let xmlhttpBooked = new XMLHttpRequest();
+                xmlhttpBooked.open("POST", "/schedule", true);
+                xmlhttpBooked.setRequestHeader("Content-Type", "application/json");
+
+                xmlhttpBooked.onload = function () {
+                    if (xmlhttpBooked.status === 200) {
+                        const confirmation = JSON.parse(xmlhttpBooked.responseText);
+                        alert(confirmation.message);
+                        Form.hide();
+                
+                    } else {
+                        alert("Booking failed");
+                        console.error("Error:", xmlhttpBooked.responseText);
+                    }
+                };
+            xmlhttpBooked.send(JSON.stringify(bookedAppointments)); 
+
+            });
+ 
              
-    }
-   
     function cancel (){
         let xmlhttpCancel = new XMLHttpRequest();
         xmlhttpCancel.open("GET", "/schedule?action=cancel", true);
@@ -95,5 +116,5 @@ function book(){
             }
         };
         xmlhttpCancel.send(); 
-    
-    } 
+    }
+
