@@ -30,10 +30,17 @@ if (selectedClass == "")
                 Form.show();
 
                 flatpickr("#class-date", {
-                    enable: dates, 
-                    dateFormat: "Y-m-d"
+                    dateFormat: "Y-m-d",
+                    enable: dates,   
+                    disable: [
+                        function(date) {
+                          const disabledDates = date.toISOString().split('T')[0]; 
+                          return !dates.includes(disabledDates); // Disable dates not in the  array
+                        }
+                      ] 
                 });
-         } else {
+         
+        } else {
             console.error("Failed to fetch available dates");
         }
     };

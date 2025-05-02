@@ -27,13 +27,24 @@ const availableClassDates = {
         }
     }
 
-    function book(params, res) {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-            message: "Class has been booked",
+    function book(params, res, db) {
+        const { user_id, class_id, class_name, class_date, first_name, last_name, email} = params;
+        const sql = "INSERT INTO class_bookings(user_id, class_id, class_name, class_date, first_name, last_name, email)  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        db.query(sql, [user_id, class_id, class_name, class_date, first_name, last_name, email], (err, result) => {
+            if (err) {
+            console.error(err);
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end(JSON.stringify({ message: "Class already booked" }));
+
+            } else {
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end(JSON.stringify({
+            message: "Class has been successfully booked",
             booking: params
-        }));
-    }
+            }
+        ))
+    }})};
+    
     function cancel(params, res){
         res.writeHead (200, {'Content-Type': 'application/json'});
         res.write(JSON.stringify({message: "Booking Canceled"}));

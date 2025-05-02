@@ -98,7 +98,7 @@ const handle_incoming_requests = function (req, res) {
 						schedule.availableSlot(queryObj, res);
 				
 					} else if (queryObj.action == "book"){
-						schedule.book(queryObj, res);
+						schedule.book(queryObj, res, db);
 					}
 					break;
 				}
