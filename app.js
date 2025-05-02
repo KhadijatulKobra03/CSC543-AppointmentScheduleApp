@@ -55,14 +55,12 @@ const handle_incoming_requests = function (req, res) {
 				fun.pricing(queryObj, res);
 				break;	
 			}
-			case "/bookaclass": { // Marina GET response from schedule.js calling function availableSlot
+			case "/schedule": { 
 				console.log("in app.js schedule")
-				schedule.availableSlot(queryObj, res);
-				break;	
-			}
-			case "/cancel": { // Marina GET response from schedule.js calling function cancel
-				console.log("in app.js schedule")
-				schedule.cancel(queryObj, res);
+				if (queryObj.action === "cancel"){
+					schedule.cancel(queryObj, res);	
+				}
+				
 				break;	
 			}
 			default: {
@@ -86,6 +84,7 @@ const handle_incoming_requests = function (req, res) {
 		req.on('end', () => {
 			console.log("in app.js end", body)
 			const queryObj = JSON.parse(body);
+			
 			switch (path) {
 				/*
 				case "/newsletter": {
@@ -93,9 +92,13 @@ const handle_incoming_requests = function (req, res) {
 					fun.newsletter(queryObj, res);
 					break;
 				}*/
-				case "/bookclass": { // Marina's case calling book function from scheduling.js
+				case "/schedule": {
 					console.log("in app.js scheduling")
-					schedule.book(queryObj, res);
+					if (queryObj.action === "available") {
+						schedule.availableSlot(queryObj, res);
+					} else if (queryObj.action === "book"){
+						schedule.book(queryObj, res);
+					}
 					break;
 				}
 				case "/contact": {
