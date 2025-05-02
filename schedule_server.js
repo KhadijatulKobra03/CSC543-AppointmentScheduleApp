@@ -11,22 +11,21 @@ const availableClassDates = {
    "Kids and Teens Yoga": ["2025-06-03", "2025-06-05", "2025-06-17", "2025-06-18", "2025-06-19", "2025-06-20"] }
 
 
-function availableSlot(params, res){
-    console.log("Received className:", params.className);
+    function availableSlot(params, res){
     
-    const className = params.className;
-    const availableDates = availableClassDates[className];
+        const className = params.className;
+        const availableDates = availableClassDates[className];
 
-    if (availableDates){
-    
-    res.writeHead (200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({ availableDates}));
-    
-    } else {
-    res.writeHead(404, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({ message: "Class not found" }));
+        if (availableDates){
+        
+        res.writeHead (200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ availableDates}));
+        
+        } else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ message: "Class not found" }));
+        }
     }
-}
 
     function book(params, res) {
         res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -35,14 +34,15 @@ function availableSlot(params, res){
             booking: params
         }));
     }
-function cancel(params, res){
-    res.writeHead (200, {'Content-Type': 'application/json'});
-    res.write(JSON.stringify({message: "Booking Canceled"}));
-    res.end();
-    }
+    function cancel(params, res){
+        res.writeHead (200, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: "Booking Canceled"}));
+        res.end();
+        }
 
 module.exports ={
     availableSlot,
     book,
     cancel
 }
+
