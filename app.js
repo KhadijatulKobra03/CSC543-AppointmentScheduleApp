@@ -6,7 +6,7 @@ const schedule = require('./schedule_server.js');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const db = mysql.createConnection({
-	host: '35.202.25.101',  //khadija's vm's ip address
+	host: '35.202.25.101',
 	user: 'yogauser',
 	password: 'CSC543',
 	database: 'yoga_database'
@@ -155,7 +155,7 @@ const handle_incoming_requests = function (req, res) {
 					
 								transporter.sendMail(mailOptions, (error, info) => {
 									if (error) {
-									  console.error("Email sending error:", error);  
+									  console.error("Email sending error:", error); 
 									  res.writeHead(500, { 'Content-Type': 'text/plain' });
 									  res.end("Reservation successful, but email failed.");
 									} else {
