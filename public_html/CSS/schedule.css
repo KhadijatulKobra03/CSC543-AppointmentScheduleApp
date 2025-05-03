@@ -45,3 +45,10 @@
     background-color: olive;
 }
 
+
+.center-calendar {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  

@@ -27,7 +27,7 @@ const availableClassDates = {
         }
     }
 
-    function book(params, res, db) {
+    /*function book(params, res, db) {
         const { user_id, class_id, class_name, class_date, first_name, last_name, email} = params;
         const sql = "INSERT INTO class_bookings(user_id, class_id, class_name, class_date, first_name, last_name, email)  VALUES (?, ?, ?, ?, ?, ?, ?)";
         db.query(sql, [user_id, class_id, class_name, class_date, first_name, last_name, email], (err, result) => {
@@ -41,9 +41,61 @@ const availableClassDates = {
             res.end(JSON.stringify({
             message: "Class has been successfully booked",
             booking: params
-            }
+            
         ))
-    }})};
+    }})};*/
+
+    function book(params, res, db) {
+        const { user_id, class_name, class_date, first_name, last_name, email } = params;
+    
+        const getClassIdQuery = "SELECT id FROM classes WHERE name = ?";
+        db.query(getClassIdQuery, [class_name], (err, result) => {
+            if (err || result.length === 0) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: "Invalid class name" }));
+                return;
+            }
+
+            const class_id = result[0].id;
+
+           // Check for duplicate booking
+        const checkQuery = `
+        SELECT * FROM class_bookings 
+        WHERE user_id = ? AND class_id = ? AND class_date = ?`;
+    db.query(checkQuery, [user_id, class_id, class_date], (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error(checkErr);
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: "Error checking existing booking" }));
+            return;
+        }
+
+        if (checkResult.length > 0) {
+            res.writeHead(409, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: "You've already booked this class on that date" }));
+            return;
+        }
+        
+        const insertQuery = `
+            INSERT INTO class_bookings (user_id, class_id, class_date, first_name, last_name, email)
+            VALUES (?, ?, ?, ?, ?, ?)`;
+        
+        db.query(insertQuery, [user_id, class_id, class_date, first_name, last_name, email], (insertErr, insertResult) => {
+            if (insertErr) {
+                console.error(insertErr);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: "Booking failed" }));
+            } else {
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({
+                    message: "Class successfully booked",
+                    booking: {
+                        class_id, class_name, class_date, first_name, last_name, email
+                    }
+                }));
+            }
+        });
+    })})}
     
     function cancel(params, res){
         res.writeHead (200, {'Content-Type': 'application/json'});

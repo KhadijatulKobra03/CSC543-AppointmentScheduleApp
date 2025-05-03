@@ -128,17 +128,23 @@ const handle_incoming_requests = function (req, res) {
 					const sql = "SELECT * FROM users WHERE (email = ? or username = ?) AND password = ?";
 					db.query(sql, [email,email, password], (err, results) => {
 					  if (err) {
-						res.writeHead(500, { 'Content-Type': 'text/plain' });
-						res.end("Server error");
+						res.writeHead(500, { 'Content-Type': 'application/json' });
+						res.end(JSON.stringify({ message: "Server error" }));
 					  } else if (results.length > 0) {
-						res.writeHead(200, { 'Content-Type': 'text/plain' });
-						res.end("Login successful");
+						const user = results[0];
+						res.writeHead(200, { 'Content-Type': 'application/json' });
+						res.end(JSON.stringify({
+							message: "Login successful",
+							user_id: user.id,
+							username: user.username
+						}));
 					  } else {
-						res.writeHead(401, { 'Content-Type': 'text/plain' });
-						res.end("Invalid credentials");
+						res.writeHead(401, { 'Content-Type': 'application/json' });
+						res.end(JSON.stringify({ message: "Invalid credentials" }));
 					  }
 					});
 					break;}
+					
 
 					case "/register_event": {
 						console.log("in app.js register_event");
