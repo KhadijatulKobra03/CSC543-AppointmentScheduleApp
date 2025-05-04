@@ -90,6 +90,8 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
                 currentDate.innerText = `${months[currMonth]} ${currYear}`;
                 daysTag.innerHTML = liTag;
               };
+
+              renderCalendar();
               
               prevNextIcon.forEach(icon => {
                 icon.addEventListener("click", () => {
