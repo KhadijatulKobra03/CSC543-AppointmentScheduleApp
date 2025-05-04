@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let flatpickrInstance = null;
 
     function showBookingForm() {
-        const userId = sessionStorage.getItem("user_id");
+        const userId = localStorage.getItem("user_id");
         if (!userId) {
             alert("You must register or log in before booking a class.");
             window.location.href = "register.html";
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function handleBooking() {
-        const userId = sessionStorage.getItem("user_id");
+        const userId = localStorage.getItem("user_id");
         if (!userId) {
             alert("You must register or log in before booking a class.");
             window.location.href = "register.html";
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xmlhttpCancel.send();
     }
     setTimeout(() => {
-        const userId = sessionStorage.getItem("user_id");
+        const userId = localStorage.getItem("user_id");
         if (userId) {
             Form.show();
         }

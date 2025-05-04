@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
               const data = await res.json();
 
               if (res.ok && data.user_id) {
-                  sessionStorage.setItem("user_id", data.user_id);
+                localStorage.setItem("user_id", data.user_id);
+                localStorage.setItem("username", data.username);
                   alert("Login successful!");
-                  window.location.href = "schedule.html";
+                  window.location.href = "index.html";
               } else {
                   alert(data.message || "Login failed");
               }
@@ -30,3 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 });
+
+
+
