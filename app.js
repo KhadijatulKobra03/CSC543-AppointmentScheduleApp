@@ -60,9 +60,10 @@ const handle_incoming_requests = function (req, res) {
 				if (queryObj.action === "cancel"){
 					schedule.cancel(queryObj, res);	
 				}
-				
+
 				break;	
 			}
+			
 			default: {
 				let fileName = './public_html' + path //url.parse(req.url, "true").pathname;
 				console.log(fileName);
