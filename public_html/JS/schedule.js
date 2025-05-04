@@ -31,8 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const response = JSON.parse(xmlhttpBook.responseText);
                 const dates = response.availableDates;
 
-                console.log("Received dates:", dates);
-                alert("Available Dates: " + dates.join(", "));
 
                 if (flatpickrInstance) {
                     flatpickrInstance.destroy();

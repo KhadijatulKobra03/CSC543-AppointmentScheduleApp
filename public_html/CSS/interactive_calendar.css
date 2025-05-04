@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
+.wrapper{
+  width: 700px;
+  background: white;
+  border-radius: 10px;
+  margin-left: 100px;
+  font-size: large;
+  
+}
+.wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 40px 10px;
+  justify-content: space-between;
+}
+header .icons{
+  display:flex;
+}
+header .icons span{
+  height: 45px;
+  width: 45px;
+  margin: 2 2px;
+  cursor: pointer;
+  color: gray;
+  text-align: center;
+  line-height: 38px;
+  font-size: 3.5rem;
+  user-select: none;
+  border-radius: 50%;
+}
+.icons span:last-child{
+  margin-right: -10px;
+}
+header .icons span:hover{
+  background: lightgray;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.calendar{
+  padding: 60px;
+
+}
+.calendar ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+.calendar .days{
+  margin-bottom: 20px;
+}
+.calendar li{
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+.calendar .weeks li{
+  font-weight: 700;
+  cursor: default;
+}
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+.days li.inactive{
+  color: #aaa;
+}
+.days li.active{
+  color: salmon;
+}
+.days li::before{
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.days li.active::before{
+  background: lemonchiffon;
+}
+.days li:not(.active):hover::before{
+  background: #f2f2f2;
+}
+
+.calendar .days li.class-available::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  
+  /* Specific class type colors */
+  .calendar .days li.beginner-yoga::before {
+    background-color:darksalmon;
+  }
+  .calendar .days li.intermediate-yoga::before {
+    background-color: yellowgreen;
+  }
+  .calendar .days li.advanced-yoga::before {
+    background-color: deepskyblue;
+  }
+  .calendar .days li.meditation::before {
+    background-color: plum;
+  }
+  .calendar .days li.gentle-yoga::before {
+    background-color: orange;
+  }
+  .calendar .days li.chair-yoga::before {
+    background-color: royalblue;
+  }
+  .calendar .days li.kids-yoga::before {
+    background-color: lightseagreen;
+  }
+  
