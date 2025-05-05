@@ -3,6 +3,7 @@ const url = require('url');
 //const readFile = require('./public_html/js/readFile.js');
 const readFile = require('./readFile.js');
 const fun = require('./functions.js')
+//const fun = require('./contact_classes_pricing.js')
 const schedule = require('./schedule_server.js');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
