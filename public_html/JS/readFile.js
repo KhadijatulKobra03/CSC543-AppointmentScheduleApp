@@ -1,4 +1,4 @@
-const fs = require('fs');
+/* const fs = require('fs');
 const path = require('path');
 
 const contentType = function(extension) {
@@ -76,3 +76,4 @@ exports.readFile = function(fileName, res) {
 	});	
 };
 
+*/
