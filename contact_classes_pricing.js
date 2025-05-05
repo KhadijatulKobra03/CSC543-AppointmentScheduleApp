@@ -1,3 +1,4 @@
+/*
 const http = require('http');
 const url = require('url');
 const fs = require('fs')
@@ -42,6 +43,9 @@ const newsletterSignup = new Array();
 newsletterSignup[0] = { "fname": "James", "lname": "Bond", "email": "agent007@email.com" }
 newsletterSignup[1] = { "fname": "Super", "lname": "Man", "email": "Superman@email.com" }
 */
+
+
+/*
 var newsletterSignupObj = {
     table: []
 };
@@ -68,6 +72,7 @@ exports.contact = function (queryObj, res) {
                     sendResponse(res, 200, 'application/json', "Thank you for signing up!");
                 }
                 */
+/*
                 if (fs.existsSync('newsletterSignup.json')) { // if file exists - append to it
                     fs.readFile('newsletterSignup.json', 'utf8', function readFileCallback(err, data) {
                         if (err) {
@@ -307,3 +312,5 @@ exports.pricing = function (queryObj, res) {
     }
 
 };
+
+*/

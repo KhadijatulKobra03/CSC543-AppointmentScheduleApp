@@ -29,6 +29,26 @@
       "fname": "Marina",
       "lname": "Diaz",
       "email": "marinalara.daltro@gmail.com"
+    },
+    {
+      "fname": "Molly",
+      "lname": "Brown",
+      "email": "mb@mail.com"
+    },
+    {
+      "fname": "Yola",
+      "lname": "Smith",
+      "email": "ys@ee.com"
+    },
+    {
+      "fname": "Al",
+      "lname": "Purple",
+      "email": "ap@ee.com"
+    },
+    {
+      "fname": "Alicia",
+      "lname": "Black",
+      "email": "ab@ab.ab"
     }
   ]
 }

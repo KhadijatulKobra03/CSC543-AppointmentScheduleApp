@@ -1,9 +1,16 @@
 const http = require('http');
 const url = require('url');
+
 //const readFile = require('./public_html/js/readFile.js');
 const readFile = require('./readFile.js');
+
 //const fun = require('./functions.js')
-const fun = require('./contact_classes_pricing.js')
+// const fun = require('./contact_classes_pricing.js')
+const pric = require('./pricing_server.js');
+const clas = require('./classes_server.js');
+const cont = require('./contact_server.js');
+
+
 const schedule = require('./schedule_server.js');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
@@ -49,12 +56,12 @@ const handle_incoming_requests = function (req, res) {
 		switch (path) {
 			case "/classes": {
 				console.log("in app.js classes")
-				fun.classes(queryObj, res);
+				clas.classes(queryObj, res);
 				break;
 			}
 			case "/pricing": {
 				console.log("in app.js pricing")
-				fun.pricing(queryObj, res);
+				pric.pricing(queryObj, res);
 				break;	
 			}
 			case "/schedule": { 
@@ -353,7 +360,7 @@ function processPost(req, res) {
 		  }
   
 		} else if (path === "/contact") {
-		  fun.contact(queryObj, res);
+		  cont.contact(queryObj, res);
   
 		} else if (path === "/register") {
 		  const { username, email, password } = queryObj;
