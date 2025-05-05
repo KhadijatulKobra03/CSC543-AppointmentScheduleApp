@@ -5,16 +5,16 @@
 // retrieving bookings
 
 SELECT 
-						cb.booking_id, 
-						c.name AS class_name, 
-						cb.class_date, 
-						cb.first_name, 
-						cb.last_name, 
-						cb.email
-					FROM class_bookings cb
-					JOIN classes c ON cb.class_id = c.id
-					WHERE cb.user_id = ?
-					ORDER BY cb.class_date ASC;
+	cb.booking_id, 
+	c.name AS class_name, 
+	cb.class_date, 
+	cb.first_name, 
+	cb.last_name, 
+	cb.email
+FROM class_bookings cb
+JOIN classes c ON cb.class_id = c.id
+WHERE cb.user_id = ?
+ORDER BY cb.class_date ASC;
 
 ----------------------------------------------
 
