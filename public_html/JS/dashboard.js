@@ -2,18 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const username = localStorage.getItem("username");
     const userId = localStorage.getItem("user_id");
   
-    // ✅ Redirect if not logged in
+    // Redirect if not logged in
     if (!userId) {
       alert("Please log in to access your dashboard.");
       window.location.href = "login.html";
       return;
     }
   
-    // ✅ Show username in welcome message
+    //  Show username in welcome message
     const userSpan = document.getElementById("username");
     if (username && userSpan) userSpan.textContent = username;
   
-    // ✅ Load booked classes
+    // Load booked classes
     fetch(`/dashboard?user_id=${userId}`)
       .then(res => res.json())
       .then(bookings => {
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
           bookingList.appendChild(card);
         });
   
-        // ✅ Handle booking cancellation
+        // Handle booking cancellation
         document.querySelectorAll(".cancel-btn").forEach(button => {
           button.addEventListener("click", () => {
             const bookingId = button.getAttribute("data-id");
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Could not load bookings.");
       });
   
-    // ✅ Handle account update form submission
+    //  Handle account update form submission
     const updateForm = document.getElementById("updateForm");
     if (updateForm) {
       updateForm.addEventListener("submit", async (e) => {
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   
-    // ✅ Handle account delete button
+    // Handle account delete button
     const deleteBtn = document.getElementById("deleteAccountBtn");
     if (deleteBtn) {
       deleteBtn.addEventListener("click", () => {
