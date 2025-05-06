@@ -8,7 +8,7 @@ function isEmail(str) {
     // function checks if string is in email format
     return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(str);
 };
- 
+
 
 function isAlpha(str) {
     // function checks if string is alpha
@@ -31,9 +31,9 @@ const newsletterSignup = new Array();
 newsletterSignup[0] = { "fname": "James", "lname": "Bond", "email": "agent007@email.com" }
 newsletterSignup[1] = { "fname": "Super", "lname": "Man", "email": "Superman@email.com" }
 */
-var newsletterSignupObj = {
+/*var newsletterSignupObj = {
     table: []
-};
+}; */
 
 exports.contact = function (queryObj, res) {
     // adds name to array
@@ -64,12 +64,12 @@ exports.contact = function (queryObj, res) {
                         } else {
                             let obj = JSON.parse(data); //converting data from file to object
 
-                            if (obj.table.some(elem => elem.email == userEmail)) {
+                            if (obj.table.some(elem => elem.email.toLowerCase() == userEmail.toLowerCase())) {
                                 resp.sendResponse(res, 409, 'application/json', "Email already in the database.");
                             }
                             else {
                                 obj.table.push({ "fname": userFirstName, "lname": userLastName, "email": userEmail }); //add some data
-                                const newsletterSignupObjinJSON = JSON.stringify(obj,null,2); //convert it back to json
+                                const newsletterSignupObjinJSON = JSON.stringify(obj, null, 2); //convert it back to json
                                 fs.writeFile('newsletterSignup.json', newsletterSignupObjinJSON, 'utf8', function (err) {
                                     if (err) {
                                         console.log(err);
@@ -78,14 +78,17 @@ exports.contact = function (queryObj, res) {
                                         resp.sendResponse(res, 200, 'application/json', "Thank you for signing up!");
                                     }
                                 });
-                                
+
                             }
                         }
                     });
                 }
                 else { // if file doesn't exist - create it and write to it
+                    var newsletterSignupObj = {
+                        table: []
+                    };
                     newsletterSignupObj.table.push({ "fname": userFirstName, "lname": userLastName, "email": userEmail });
-                    const newsletterSignupObjinJSON = JSON.stringify(newsletterSignupObj, null,2);
+                    const newsletterSignupObjinJSON = JSON.stringify(newsletterSignupObj, null, 2);
                     fs.writeFile('newsletterSignup.json', newsletterSignupObjinJSON, 'utf8', function (err) {
                         if (err) {
                             console.log(err);
