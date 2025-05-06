@@ -376,25 +376,30 @@ function processPost(req, res) {
 		  });
   
 		} else if (path === "/login") {
-		  const { email, password } = queryObj;
-		  const sql = "SELECT * FROM users WHERE (email = ? OR username = ?) AND password = ?";
-		  db.query(sql, [email, email, password], (err, results) => {
-			if (err) {
-			  res.writeHead(500, { 'Content-Type': 'application/json' });
-			  res.end(JSON.stringify({ message: "Server error" }));
-			} else if (results.length > 0) {
-			  const user = results[0];
-			  res.writeHead(200, { 'Content-Type': 'application/json' });
-			  res.end(JSON.stringify({
-				message: "Login successful",
-				user_id: user.id,
-				username: user.username
-			  }));
-			} else {
-			  res.writeHead(401, { 'Content-Type': 'application/json' });
-			  res.end(JSON.stringify({ message: "Invalid credentials" }));
-			}
-		  });
+			console.log("in app.js login");
+			const { email, username, password } = queryObj;
+		  
+			const loginInput = email || username; // support either key
+			const sql = "SELECT * FROM users WHERE (email = ? OR username = ?) AND password = ?";
+		  
+			db.query(sql, [loginInput, loginInput, password], (err, results) => {
+			  if (err) {
+				res.writeHead(500, { 'Content-Type': 'application/json' });
+				res.end(JSON.stringify({ message: "Server error" }));
+			  } else if (results.length > 0) {
+				const user = results[0];
+				res.writeHead(200, { 'Content-Type': 'application/json' });
+				res.end(JSON.stringify({
+				  message: "Login successful",
+				  user_id: user.id,
+				  username: user.username
+				}));
+			  } else {
+				res.writeHead(401, { 'Content-Type': 'application/json' });
+				res.end(JSON.stringify({ message: "Invalid credentials" }));
+			  }
+			});
+		  
   
 		} else if (path === "/register_event") {
 		  const { firstName, lastName, email, eventName } = queryObj;
