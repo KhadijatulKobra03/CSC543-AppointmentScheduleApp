@@ -303,5 +303,4 @@ function processPost(req, res) {
 	const myServer = http.createServer(handle_incoming_requests);
 
 	// server starts listenig on port 80
-	myServer.listen(3000
-	, function () { console.log("Listening on port 80") });
+	myServer.listen(3000, function () { console.log("Listening on port 3000") });
