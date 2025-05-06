@@ -49,6 +49,16 @@
       "fname": "Alicia",
       "lname": "Black",
       "email": "ab@ab.ab"
+    },
+    {
+      "fname": "Marina",
+      "lname": "Cardoso",
+      "email": "marinacdaltro@outlook.com"
+    },
+    {
+      "fname": "Marina",
+      "lname": "Smith",
+      "email": "marina.smith@gmail.com"
     }
   ]
 }
