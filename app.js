@@ -11,6 +11,8 @@ const cont = require('./contact_server.js');
 const schedule = require('./schedule_server.js');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
+
+//by khadija
 const db = mysql.createConnection({
 	host: '35.202.25.101',
 	user: 'yogauser',
@@ -23,6 +25,7 @@ const db = mysql.createConnection({
 	console.log("MySQL connected");
   });
   
+  //by khadija
   const transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
@@ -70,7 +73,7 @@ const handle_incoming_requests = function (req, res) {
 				break;	
 			}
 			
-			
+			// by khadija
 			case "/dashboard": {
 				console.log("in app.js dashboard");
 			
@@ -105,7 +108,7 @@ const handle_incoming_requests = function (req, res) {
 				});
 				break;
 			}
-			
+			// by khadija
 			case "/cancel-booking": {
 				console.log("in app.js cancel-booking");
 			
@@ -130,7 +133,7 @@ const handle_incoming_requests = function (req, res) {
 				});
 				break;
 			}
-			
+			// by khadija
 			case "/user/delete": {
 				console.log("in app.js delete user");
 		  
@@ -180,7 +183,8 @@ function processPost(req, res) {
 		const queryObj = JSON.parse(body);
 		console.log("Body:", queryObj);
   
-		if (path === "/update-account") {
+		if (path === "/update-account") // by khadija
+			 {
 		  const { user_id, username, email, password } = queryObj;
   
 		  if (!user_id || !username || !email || !password) {
@@ -200,7 +204,8 @@ function processPost(req, res) {
 			}
 		  });
   
-		} else if (path === "/schedule") {
+		} else if (path === "/schedule") 
+			 {
 		  if (queryObj.action === "available") {
 			schedule.availableSlot(queryObj, res);
 		  } else if (queryObj.action === "book") {
@@ -210,7 +215,8 @@ function processPost(req, res) {
 		} else if (path === "/contact") {
 		  cont.contact(queryObj, res);
   
-		} else if (path === "/register") {
+		} else if (path === "/register") // by khadija
+			 {
 		  const { username, email, password } = queryObj;
 		  const sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 		  db.query(sql, [username, email, password], (err, result) => {
@@ -223,7 +229,8 @@ function processPost(req, res) {
 			}
 		  });
   
-		} else if (path === "/login") {
+		} else if (path === "/login") // by khadija
+			 {
 			console.log("in app.js login");
 			const { email, username, password } = queryObj;
 		  
@@ -249,7 +256,8 @@ function processPost(req, res) {
 			});
 		  
   
-		} else if (path === "/register_event") {
+		} else if (path === "/register_event") // by khadija
+			{
 		  const { firstName, lastName, email, eventName } = queryObj;
 		  const fullName = firstName + " " + lastName;
 		  const sql = "INSERT INTO event_registrations (name, email, event_name) VALUES (?, ?, ?)";
@@ -299,5 +307,5 @@ function processPost(req, res) {
 	// creating server object
 	const myServer = http.createServer(handle_incoming_requests);
 
-	// server starts listenig on port 80
+	// server starts listenig on port 3000
 	myServer.listen(3000, function () { console.log("Listening on port 3000") });
