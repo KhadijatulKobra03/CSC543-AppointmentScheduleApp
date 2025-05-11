@@ -1,11 +1,8 @@
 const http = require('http');
 const url = require('url');
 
-//const readFile = require('./public_html/js/readFile.js');
 const readFile = require('./readFile.js');
 
-//const fun = require('./functions.js')
-// const fun = require('./contact_classes_pricing.js')
 const pric = require('./pricing_server.js');
 const clas = require('./classes_server.js');
 const cont = require('./contact_server.js');
